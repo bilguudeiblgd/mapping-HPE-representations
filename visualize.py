@@ -1,6 +1,9 @@
+# %%
 import cv2
 import numpy as np
 import json
+
+# %%
 
 
 ROOT_FOLDER = "/datagrid/personal/baljibil"
@@ -8,10 +11,10 @@ ROOT_FOLDER = "/datagrid/personal/baljibil"
 with open(ROOT_FOLDER + '/data/MPII_COCO/annotations/mpii_val.json', 'r') as f:
     annot_truth = json.load(f)
 # prediction
-with open(ROOT_FOLDER + '/repos/scripts/mpii_pred_on_mpii/pred.json', 'r') as f:
+with open(ROOT_FOLDER + '/repos/scripts/mpii_pred_on_mpii/resnet_pred.json', 'r') as f:
     annot_pred = json.load(f)
 
-for i in range(20):
+for i in range(10):
   # Load the image
   image = cv2.imread(ROOT_FOLDER + '/data/MPII_COCO/images/' + annot_truth[i]['image'])
 
@@ -39,3 +42,5 @@ for i in range(20):
 
   # Display the annotated images side by side
   cv2.imwrite(f'results/image{i}.jpg', np.hstack([image1, image2]))
+
+# %%
