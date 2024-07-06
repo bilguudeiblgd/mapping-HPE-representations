@@ -152,6 +152,6 @@ def save_with_multiple_keypoints(nth_image, annot_truth, path, keypoints, skelet
     cv2.putText(image1, label2, label2_position, font, font_scale, color, thickness)
   # Display the annotated images side by side
   combined_image = image
-  if keypoints2 is not None:
+  if keypoints1 is not None:
     combined_image = np.concatenate((image, image1), axis=1)
   cv2.imwrite(f'{path}', combined_image)
