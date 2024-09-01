@@ -44,6 +44,8 @@ Method 2: was to use ViTPose and train it on multi dataset setting. It means to 
 
 Next, [https://github.com/bilguudeiblgd/mapping-HPE-representations/blob/main/error_distribution.ipynb] after this experiment, we saw that errors in joints are gaussian errors, and not much different between datasets. Meaning that most datasets are predicting the same thing, and there's not much bias as the errors are gaussian. Thus we merged the joints to improve generalizability and that's where we hold most of our experiments. The training&validation config is here [https://github.com/bilguudeiblgd/ViTPose/tree/combined_joint_prediction_merged].
 
+Some detailed logs and results are here: [https://material-cowbell-938.notion.site/Vitpose-combined-daeb32b9e0574d1f80ab5f800f31b7ab]
+
 <hr>
 
 ### Files & data left
@@ -68,13 +70,9 @@ Next, [https://github.com/bilguudeiblgd/mapping-HPE-representations/blob/main/er
 The models returns 21 keypoints. It was trained on MPII and COCO.
 
 - 0..16th keypoints are COCO keypoints
-
 - 17th keypoint correspond to MPII 9th(head_top).
-
 - 18th keypoint correspond to MPII 8th(upper_neck).
-
 - 19th keypoint correspond to MPII 7th(thorax).
-
 - 20th keypoint correspond to MPII 6th(pelvis).
 
 <hr>
@@ -90,6 +88,29 @@ The models returns 23 keypoints. It was trained on MPII and COCO.
 - 20th keypoint correspond to MPII 6th(pelvis).
 - 21th keypoint correspond to AIC 12th(head_top).
 - 22th keypoint correspond to AIC 13th(neck).
+
+
+## Final notes & tutorials
+
+<b>Disregard:</b>
+
+The repo itself contains, a lot of experiments and util functions for those. It used to be more detailed but I messed up with my version control and deleted every model, this repo in the gpu cluster. Around 14 models, trained or downloaded was deleted and around 15 days of work in this repo was also deleted. Though I kept the log and highlights in the notion and also in some notebook. Thus some of the notebooks might not run and they are not supposed to be "runnable material" but more like reading. It's better to create new scripts for experiments than those as the code in there is also very messy. 
+
+<hr>
+
+<b>Multi-dataset training:</b>
+
+Extending and tinkering with ViTPose code is very flexible and easy, but ofc, not trivial. Experiments are done with configs. For changing the workings of the models, are done in detectors folder. For example, look at [https://github.com/bilguudeiblgd/ViTPose/blob/combined_joint_prediction_merged/mmpose/models/detectors/top_down_combined.py]. It handles multi-dataset training.
+
+<hr>
+
+<b>To get COCO representation on MPII (different eval on different dataset):</b>
+
+The code [https://github.com/bilguudeiblgd/ViTPose/tree/run_mpii_model_on_coco] is here but it was written when i was starting out so there's a lot of spaghetti code I've done there. The actual only thing to change is the change the CONFIG that you are going to run and eval. Evals are done here [https://github.com/bilguudeiblgd/ViTPose/tree/run_mpii_model_on_coco/mmpose/datasets/datasets/top_down].
+
+
+
+
 
 
 
