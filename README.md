@@ -44,6 +44,56 @@ Method 2: was to use ViTPose and train it on multi dataset setting. It means to 
 
 Next, [https://github.com/bilguudeiblgd/mapping-HPE-representations/blob/main/error_distribution.ipynb] after this experiment, we saw that errors in joints are gaussian errors, and not much different between datasets. Meaning that most datasets are predicting the same thing, and there's not much bias as the errors are gaussian. Thus we merged the joints to improve generalizability and that's where we hold most of our experiments. The training&validation config is here [https://github.com/bilguudeiblgd/ViTPose/tree/combined_joint_prediction_merged].
 
+<hr>
+
+### Files & data left
+<pre>
+| AIC/
+| vitpose_base_21_combined_mpii_coco/
+| --- 20240729_094618.log.json
+| --- best_AP_epoch_210.pth
+| vitpose_base_23_combined_mpii_coco_aic/
+| --- 20240821_212733.log.json
+| --- best_AP_epoch_210.pth
+</pre>
+<hr>
+
+<b>AIC</b> - contains AIC dataset downloaded from baidu cloud. It includes all that was included in AIC, not only keypoints
+
+<hr>
+
+<b>vitpose_base_21_combined_mpii_coco</b> - folder containing model that predicts COCO and MPII (union).
+
+<hr>
+
+<b>Model explanation</b>
+The models returns 21 keypoints. It was trained on MPII and COCO.
+
+- 0..16th keypoints are COCO keypoints
+
+- 17th keypoint correspond to MPII 9th(head_top).
+
+- 18th keypoint correspond to MPII 8th(upper_neck).
+
+- 19th keypoint correspond to MPII 7th(thorax).
+
+- 20th keypoint correspond to MPII 6th(pelvis).
+
+<hr>
+
+<b>vitpose_base_23_combined_mpii_coco_aic</b> - folder containing model that predicts COCO, MPII, AIC (union on joints).
+
+<b>Model explanation</b>
+The models returns 23 keypoints. It was trained on MPII and COCO.
+- 0..16th keypoints are COCO keypoints
+- 17th keypoint correspond to MPII 9th(head_top).
+- 18th keypoint correspond to MPII 8th(upper_neck).
+- 19th keypoint correspond to MPII 7th(thorax).
+- 20th keypoint correspond to MPII 6th(pelvis).
+- 21th keypoint correspond to AIC 12th(head_top).
+- 22th keypoint correspond to AIC 13th(neck).
+
+
 
 
 
