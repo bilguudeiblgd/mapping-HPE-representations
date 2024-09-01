@@ -36,6 +36,14 @@ Our first idea was to try training a small net to see if translation between rep
 The issue is to have 2 representations on one dataset so we can train between them. Firstly, I ran COCO on MPII(the config is given above) to get COCO keypoint representation of MPII dataset. From then, we treat that X and Y as MPII groundtruth. From here, the experiment is in the file [https://github.com/bilguudeiblgd/mapping-HPE-representations/blob/main/translation_model_coco2mpii.ipynb]. The experiment, in my opinion, was quite successful. The better the X(COCO prediction on MPII image), the better the translation. With close to 78 AP COCO model, the translation achieves 90+ PCKh after translation. However, the other direction is much less successful. I believe it's mostly due to the fact that there's more info about face in COCO than in MPII. This translation models were to be then served as a baseline.
 
 ### Direction 2.
+In direction two, main idea, given by Miraslov, was to use existing predictor like ViTPose and train the model in multi-dataset setting. Here I tried 2 methods. 
+
+Method 1: was to use existing ViTPose which already has different decoder heads that spit outs its respective representations. Though the config was not available so a bit of hacking was necessary. In the we were able to use those. The code for the config and detector code is [https://github.com/bilguudeiblgd/ViTPose/tree/hack_vitpose_base].
+
+Method 2: was to use ViTPose and train it on multi dataset setting. It means to batch from dataset D1, D2, at the same time and only flow loss if the keypoint exists. Then specifically, we'll train a model that predicts 17+16 = 33 keypoints, including COCO and MPII keypoints, and given an image x from COCO, we will predict for 33 keypoints, but only flow loss for first 17 points. The config is given here. [https://github.com/bilguudeiblgd/ViTPose/tree/combined_joint_prediction]. A detail ot notice, if one is to train the model, is that it has first 17 coco on the first place and then mpii keypoints but flipped.
+
+Next, [https://github.com/bilguudeiblgd/mapping-HPE-representations/blob/main/error_distribution.ipynb] after this experiment, we saw that errors in joints are gaussian errors, and not much different between datasets. Meaning that most datasets are predicting the same thing, and there's not much bias as the errors are gaussian. Thus we merged the joints to improve generalizability and that's where we hold most of our experiments. The training&validation config is here [https://github.com/bilguudeiblgd/ViTPose/tree/combined_joint_prediction_merged].
+
 
 
 
