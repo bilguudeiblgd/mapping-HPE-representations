@@ -64,8 +64,6 @@ Next, [https://github.com/bilguudeiblgd/mapping-HPE-representations/blob/main/er
 
 <b>vitpose_base_21_combined_mpii_coco</b> - folder containing model that predicts COCO and MPII (union).
 
-<hr>
-
 <b>Model explanation</b>
 The models returns 21 keypoints. It was trained on MPII and COCO.
 
